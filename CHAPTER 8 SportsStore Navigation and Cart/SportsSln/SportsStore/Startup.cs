@@ -45,7 +45,6 @@ namespace SportsStore
             app.UseStaticFiles();
 
             app.UseRouting();
-
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapGet("/", async context =>
@@ -53,12 +52,29 @@ namespace SportsStore
             //        await context.Response.WriteAsync("Hello World!");
             //    });
             //});
+            //app.UseEndpoints(endpoints => {
+            //    endpoints.MapControllerRoute("pagination",
+            //                                "Products/Page{productPage}",
+            //                                new { Controller = "Home", action = "Index" });
+            //    endpoints.MapDefaultControllerRoute();
+            //}); 
             app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute("catpage",
+                "{category}/Page{productPage:int}",
+                new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute("page", "Page{productPage:int}",
+                new { Controller = "Home", action = "Index", productPage = 1 });
+                
+                endpoints.MapControllerRoute("category", "{category}",
+                new { Controller = "Home", action = "Index", productPage = 1 });
+                
                 endpoints.MapControllerRoute("pagination",
-                                            "Products/Page{productPage}",
-                                            new { Controller = "Home", action = "Index" });
+                "Products/Page{productPage}",
+                new { Controller = "Home", action = "Index", productPage = 1 });
                 endpoints.MapDefaultControllerRoute();
-            }); 
+            });
+
             SeedData.EnsurePopulated(app);
         }
     }

@@ -24,8 +24,13 @@ namespace SportsStore.Pages
         {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
             Cart.AddItem(product, 1);
+            return RedirectToPage(new { returnUrl = returnUrl });
+        }
+        public IActionResult OnPostRemove(long productId, string returnUrl)
+        {
+            Cart.RemoveLine(Cart.Lines.First(cl =>
+                cl.Product.ProductID == productId).Product);
             return RedirectToPage(new { returnUrl = returnUrl });
         }
     }

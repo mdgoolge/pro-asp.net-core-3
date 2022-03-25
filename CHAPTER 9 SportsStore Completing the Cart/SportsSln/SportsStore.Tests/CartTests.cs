@@ -66,6 +66,7 @@ p1, p2
             Assert.Equal(2, cartModel.Cart.Lines.Count());
             Assert.Equal("myUrl", cartModel.ReturnUrl);
         }
+
         [Fact]
         public void Can_Update_Cart()
         {

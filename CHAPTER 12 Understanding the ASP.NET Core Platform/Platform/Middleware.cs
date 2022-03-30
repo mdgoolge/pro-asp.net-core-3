@@ -9,6 +9,10 @@ namespace Platform
         {
             next = nextDelegate;
         }
+        public QueryStringMiddleWare()
+        {
+
+        }
         public async Task Invoke(HttpContext context)
         {
             if (context.Request.Method == HttpMethods.Get
@@ -16,7 +20,11 @@ namespace Platform
             {
                 await context.Response.WriteAsync("Class-based Middleware \n");
             }
-            await next(context);
+            //await next(context);
+            if (next != null)
+            {
+                await next(context);
+            }
         }
     }
 }

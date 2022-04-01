@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 namespace Platform
 {
     public static class Capital
@@ -20,7 +22,11 @@ namespace Platform
                     capital = "Paris";
                     break;
                 case "monaco":
-                    context.Response.Redirect($"/population/{country}");
+                    LinkGenerator generator =
+                            context.RequestServices.GetService<LinkGenerator>();
+                    string url = generator.GetPathByRouteValues(context,
+                        "population", new { city = country });
+                    context.Response.Redirect(url);
                     return;
             }
             if (capital != null)

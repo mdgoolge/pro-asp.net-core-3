@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Routing;
 using Platform.Services;
 using Microsoft.Extensions.Configuration;
+using System;
 namespace Platform
 {
     public class Startup
@@ -24,7 +25,13 @@ namespace Platform
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IResponseFormatter, TimeResponseFormatter>();
+            services.AddScoped<IResponseFormatter>(serviceProvider =>
+            {
+                string typeName = Configuration["services:IResponseFormatter"];
+                return (IResponseFormatter)ActivatorUtilities
+                    .CreateInstance(serviceProvider, typeName == null
+                        ? typeof(GuidService) : Type.GetType(typeName, true));
+            });
             services.AddScoped<ITimeStamper, DefaultTimeStamper>();
         }
 

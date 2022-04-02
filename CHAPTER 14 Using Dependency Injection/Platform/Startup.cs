@@ -47,7 +47,8 @@ IResponseFormatter formatter)
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapGet("/endpoint/class", WeatherEndpoint.Endpoint);
-                endpoints.MapWeather("/endpoint/class");
+                //endpoints.MapWeather("/endpoint/class");
+                endpoints.MapEndpoint<WeatherEndpoint>("/endpoint/class");
 
                 endpoints.MapGet("/endpoint/function", async context =>
                  {

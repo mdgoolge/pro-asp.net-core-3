@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Routing;
-
+using Platform.Services;
 namespace Platform
 {
     public class Startup
@@ -18,11 +18,7 @@ namespace Platform
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<RouteOptions>(opts =>
-            {
-                opts.ConstraintMap.Add("countryName",
-                    typeof(CountryRouteConstraint));
-            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,41 +28,32 @@ namespace Platform
         {
             app.UseDeveloperExceptionPage();
             app.UseRouting();
+            app.UseMiddleware<WeatherMiddleware>();
 
+            IResponseFormatter formatter = new TextResponseFormatter();
             app.Use(async (context, next) =>
             {
-                Endpoint end = context.GetEndpoint();
-                if (end != null)
+                if (context.Request.Path == "/middleware/function")
                 {
-                    await context.Response
-                        .WriteAsync($"{end.DisplayName} Selected \n");
+                    await formatter.Format(context,
+                        "Middleware Function:It is snowing in Chicago");
                 }
                 else
                 {
-                    await context.Response.WriteAsync("No EndPoints Selected \n");
+                    await next();
                 }
-                await next();
             });
 
-            app.UseEndpoints(endpoints => {
-                endpoints.Map("{number:int}", async context => {
-                    await context.Response.WriteAsync("Routed to the int endpoint");
-                })
-                .WithDisplayName("Int EndPoint")
-                .Add(b=>((RouteEndpointBuilder)b).Order=1);
-                endpoints.Map("{number:double}", async context => {
-                    await context.Response
-                    .WriteAsync("Routed to the double endpoint");
-                })
-                .WithDisplayName("Double EndPoint")
-                .Add(b => ((RouteEndpointBuilder)b).Order = 2); ;
-            });
-
-            app.Use(async (context, next) =>
+            app.UseEndpoints(endpoints =>
             {
-                await context.Response.WriteAsync("Terminal middleware Reached");
-            });
+                endpoints.MapGet("/endpoint/class", WeatherEndpoint.Endpoint);
 
+                endpoints.MapGet("/endpoint/function", async context =>
+                 {
+                     await context.Response
+                         .WriteAsync("Endpoint Function:It is sunny in LA");
+                 });
+            });
         }
     }
 }

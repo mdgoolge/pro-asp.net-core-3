@@ -35,8 +35,8 @@ namespace Platform
             {
                 if (context.Request.Path == "/middleware/function")
                 {
-                    await TextResponseFormatter.Singleton.Format(context,
-                    "Middleware Function: It is snowing in Chicago");
+                    await TypeBroker.Formatter.Format(context,
+  "Middleware Function: It is snowing in Chicago");
                 }
                 else
                 {
@@ -50,8 +50,8 @@ namespace Platform
                     
                 endpoints.MapGet("/endpoint/function", async context =>
                  {
-                     await TextResponseFormatter.Singleton.Format(context,
-                        "Endpoint Function: It is sunny in LA");
+                     await TypeBroker.Formatter.Format(context,
+ "Endpoint Function: It is sunny in LA");
                  });
             });
         }

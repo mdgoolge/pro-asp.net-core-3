@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.FileProviders;
 namespace Platform
 {
     public class Startup
@@ -30,6 +31,14 @@ namespace Platform
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new
+PhysicalFileProvider($"{env.ContentRootPath}/staticfiles"),
+                RequestPath = "/files"
+            });
+
             app.UseRouting();
 
             app.UseMiddleware<LocationMiddleware>();

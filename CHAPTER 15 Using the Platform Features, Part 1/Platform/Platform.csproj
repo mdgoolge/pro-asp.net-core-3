@@ -5,6 +5,15 @@
     <UserSecretsId>5ac5353b-caec-457d-a47a-d896bb8a521b</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="staticfiles\hello.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="staticfiles\hello.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
   </ItemGroup>
 </Project>

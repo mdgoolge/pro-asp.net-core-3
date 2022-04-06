@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 namespace Platform
 {
     public class Startup
@@ -15,10 +16,18 @@ namespace Platform
         public void ConfigureServices(IServiceCollection services)
         {
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment envenv,
+IConfiguration config)
         {
             app.UseDeveloperExceptionPage();
-            app.UseRouting();
+            app.UseRouting(); 
+            
+            app.Use(async (context, next) => {
+                string defaultDebug = config["Logging:LogLevel:Default"];
+                await context.Response
+                .WriteAsync($"The config setting is: {defaultDebug}");
+            });
+
             app.UseEndpoints(endpoints => {
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync("Hello World!");

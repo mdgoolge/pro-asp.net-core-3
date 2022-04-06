@@ -20,12 +20,15 @@ namespace Platform
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MessageOptions>(Configuration.GetSection("Location"));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
-            app.UseRouting(); 
-            
+            app.UseRouting();
+
+            app.UseMiddleware<LocationMiddleware>();
+
             app.Use(async (context, next) => {
                 string defaultDebug = Configuration["Logging:LogLevel:Default"];
                 await context.Response

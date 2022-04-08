@@ -37,12 +37,24 @@ namespace Platform
             {
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseCookiePolicy();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseStatusCodePages("text/html", ResponseStrings.DefaultResponse);
+            app.UseCookiePolicy();
             app.UseMiddleware<ConsentMiddleware>();
             app.UseSession();
-            app.UseRouting();
+
+            app.Use(async (context, next) => {
+                if (context.Request.Path == "/error")
+                {
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    await Task.CompletedTask;
+                }
+                else
+                {
+                    await next();
+                }
+            });
 
             app.Run(context => {
                 throw new Exception("Something has gone wrong");

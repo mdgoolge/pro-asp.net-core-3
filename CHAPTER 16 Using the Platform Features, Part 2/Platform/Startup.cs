@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.HostFiltering;
 namespace Platform
 {
     public class Startup
@@ -27,7 +28,10 @@ namespace Platform
                 opts.MaxAge = TimeSpan.FromDays(1);
                 opts.IncludeSubDomains = true;
             });
-
+            services.Configure<HostFilteringOptions>(opts => {
+                opts.AllowedHosts.Clear();
+                opts.AllowedHosts.Add("*.example.com");
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

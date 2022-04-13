@@ -23,10 +23,10 @@ namespace Platform
                 }
                 totalString = $"({ DateTime.Now.ToLongTimeString() }) {total}";
                 await cache.SetStringAsync(cacheKey, totalString,
-                new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2)
-                });
+                    new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2)
+                    });
             }
             await context.Response.WriteAsync(
             $"({DateTime.Now.ToLongTimeString()}) Total for {count}"

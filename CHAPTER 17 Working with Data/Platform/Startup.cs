@@ -7,13 +7,20 @@ namespace Platform
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache(opts => {
+                opts.SizeLimit = 200;
+            });
         }
         public void Configure(IApplicationBuilder app)
         {
+            int i = 1999999;
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseEndpoints(endpoints => {
+
+                endpoints.MapEndpoint<SumEndpoint>("/sum/{count:int=1000000000}");
+
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync("Hello World!");
                 });

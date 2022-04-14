@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Platform.Services;
+using Microsoft.EntityFrameworkCore;
+using Platform.Models;
 namespace Platform
 {
     public class Startup
@@ -24,6 +26,10 @@ namespace Platform
 
             services.AddResponseCaching();
             services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
+
+            services.AddDbContext<CalculationContext>(opts => {
+                opts.UseSqlServer(Configuration["ConnectionStrings:CalcConnection"]);
+            });
         }
         public void Configure(IApplicationBuilder app)
         {

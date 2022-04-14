@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Platform.Services;
 using Microsoft.EntityFrameworkCore;
 using Platform.Models;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 namespace Platform
 {
     public class Startup
@@ -30,8 +32,11 @@ namespace Platform
             services.AddDbContext<CalculationContext>(opts => {
                 opts.UseSqlServer(Configuration["ConnectionStrings:CalcConnection"]);
             });
+
+            services.AddTransient<SeedData>();
         }
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app,
+            IHostApplicationLifetime lifetime, IWebHostEnvironment env,SeedData seedData)
         {
             app.UseDeveloperExceptionPage();
             app.UseResponseCaching();
@@ -45,6 +50,16 @@ namespace Platform
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            bool cmdLineInit = (Configuration["INITDB"] ?? "false") == "true";
+            if (env.IsDevelopment() || cmdLineInit)
+            {
+                seedData.SeedDatabase();
+                if (cmdLineInit)
+                {
+                    lifetime.StopApplication();
+                }
+            }
         }
     }
 }

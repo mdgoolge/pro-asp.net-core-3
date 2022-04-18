@@ -47,6 +47,8 @@ namespace WebApp
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+
+                endpoints.MapWebService();
             });
 
             SeedData.SeedDatabase(context);

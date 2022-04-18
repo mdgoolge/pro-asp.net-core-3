@@ -55,6 +55,7 @@ namespace WebApp
             });
 
             SeedData.SeedDatabase(context);
+
         }
     }
 }

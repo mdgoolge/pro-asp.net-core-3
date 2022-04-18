@@ -31,9 +31,9 @@ namespace WebApp.Controllers
             return await context.Products.FindAsync(id);
         }
         [HttpPost]
-        public async Task SaveProduct([FromBody] Product product)
+        public async Task SaveProduct([FromBody] ProductBindingTarget target)
         {
-            await context.Products.AddAsync(product);
+            await context.Products.AddAsync(target.ToProduct());
             await context.SaveChangesAsync(); 
         }
         [HttpPut]

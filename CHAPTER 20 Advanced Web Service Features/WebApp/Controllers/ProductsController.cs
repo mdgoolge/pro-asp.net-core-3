@@ -4,6 +4,7 @@ using WebApp.Models;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 namespace WebApp.Controllers
 {
     [ApiController]
@@ -25,6 +26,8 @@ namespace WebApp.Controllers
 
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProduct(long id,
             [FromServices] ILogger<ProductsController> logger)
         {

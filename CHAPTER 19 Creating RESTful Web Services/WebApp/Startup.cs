@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 namespace WebApp
 {
     public class Startup
@@ -32,7 +33,10 @@ namespace WebApp
                 opts.EnableSensitiveDataLogging(true);
             });
 
-            services.AddControllers();
+            services.AddControllers(); 
+            services.Configure<JsonOptions>(opts => {
+                opts.JsonSerializerOptions.IgnoreNullValues = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

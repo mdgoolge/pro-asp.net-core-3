@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 namespace WebApp
 {
     public class Startup
@@ -43,6 +44,11 @@ namespace WebApp
             {
                 opts.RespectBrowserAcceptHeader = true;
                 opts.ReturnHttpNotAcceptable = true;
+            }); 
+            
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("v1",
+                new OpenApiInfo { Title = "WebApp", Version = "v1" });
             });
         }
 
@@ -63,6 +69,11 @@ namespace WebApp
 
                 //endpoints.MapWebService();
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp");
             });
 
             SeedData.SeedDatabase(context);

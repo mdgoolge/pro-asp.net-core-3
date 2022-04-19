@@ -17,7 +17,7 @@ namespace WebApp.Controllers
 
 
         [HttpGet]
-        public IAsyncEnumerable<Product>  GetProducts()
+        public IAsyncEnumerable<Product> GetProducts()
         {
             return context.Products;
         }
@@ -38,10 +38,14 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveProduct([FromBody] ProductBindingTarget target)
         {
-            Product p = target.ToProduct();
-            await context.Products.AddAsync(p);
-            await context.SaveChangesAsync();
-            return Ok(p);
+            if (ModelState.IsValid)
+            {
+                Product p = target.ToProduct();
+                await context.Products.AddAsync(p);
+                await context.SaveChangesAsync();
+                return Ok(p);
+            }
+            return BadRequest(ModelState);
         }
         [HttpPut]
         public async Task UpdateProduct([FromBody] Product product)

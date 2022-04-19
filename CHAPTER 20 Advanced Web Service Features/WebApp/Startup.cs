@@ -33,10 +33,16 @@ namespace WebApp
                 opts.EnableSensitiveDataLogging(true);
             });
 
-            services.AddControllers(); 
-            services.Configure<JsonOptions>(opts => {
-                opts.JsonSerializerOptions.IgnoreNullValues = true;
+            services.AddControllers().AddNewtonsoftJson();
+            services.Configure<MvcNewtonsoftJsonOptions>(opts => {
+                opts.SerializerSettings.NullValueHandling
+                = Newtonsoft.Json.NullValueHandling.Ignore;
             });
+
+            //services.AddControllers(); 
+            //services.Configure<JsonOptions>(opts => {
+            //    opts.JsonSerializerOptions.IgnoreNullValues = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

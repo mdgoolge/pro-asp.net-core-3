@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace WebApp.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
@@ -36,19 +37,15 @@ namespace WebApp.Controllers
             return Ok(p);
         }
         [HttpPost]
-        public async Task<IActionResult> SaveProduct([FromBody] ProductBindingTarget target)
+        public async Task<IActionResult> SaveProduct(ProductBindingTarget target)
         {
-            if (ModelState.IsValid)
-            {
-                Product p = target.ToProduct();
-                await context.Products.AddAsync(p);
-                await context.SaveChangesAsync();
-                return Ok(p);
-            }
-            return BadRequest(ModelState);
+            Product p = target.ToProduct();
+            await context.Products.AddAsync(p);
+            await context.SaveChangesAsync();
+            return Ok(p);
         }
         [HttpPut]
-        public async Task UpdateProduct([FromBody] Product product)
+        public async Task UpdateProduct( Product product)
         {
             context.Products.Update(product);
             await context.SaveChangesAsync();

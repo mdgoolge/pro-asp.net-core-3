@@ -2,6 +2,7 @@
 using WebApp.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
 namespace WebApp.Controllers
 {
     [ApiController]
@@ -23,6 +24,18 @@ namespace WebApp.Controllers
                 p.Supplier = null;
             };
             return supplier;
+        }
+        [HttpPatch("{id}")]
+        public async Task<Supplier> PatchSupplier(long id,
+JsonPatchDocument<Supplier> patchDoc)
+        {
+            Supplier s = await context.Suppliers.FindAsync(id);
+            if (s != null)
+            {
+                patchDoc.ApplyTo(s);
+                await context.SaveChangesAsync();
+            }
+            return s;
         }
     }
 }

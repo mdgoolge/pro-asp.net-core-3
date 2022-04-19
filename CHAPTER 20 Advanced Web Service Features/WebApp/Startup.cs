@@ -39,10 +39,11 @@ namespace WebApp
                 = Newtonsoft.Json.NullValueHandling.Ignore;
             });
 
-            //services.AddControllers(); 
-            //services.Configure<JsonOptions>(opts => {
-            //    opts.JsonSerializerOptions.IgnoreNullValues = true;
-            //});
+            services.Configure<MvcOptions>(opts =>
+            {
+                opts.RespectBrowserAcceptHeader = true;
+                opts.ReturnHttpNotAcceptable = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

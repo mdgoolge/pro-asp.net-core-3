@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Product>
 @{
+    Layout = null;
+}
+@{
     decimal average = Model.Average(p => p.Price);
 }
 <!DOCTYPE html>

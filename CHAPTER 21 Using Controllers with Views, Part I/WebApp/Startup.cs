@@ -39,8 +39,7 @@ namespace WebApp
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-                endpoints.MapControllerRoute("Default",
-                        "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
             });
 
             SeedData.SeedDatabase(context);

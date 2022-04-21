@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:long?}"
 @model IndexModel
 @using Microsoft.AspNetCore.Mvc.RazorPages
 @using WebApp.Models;
@@ -22,6 +22,7 @@
         }
         public async Task OnGetAsync(long id = 1)
         {
+            System.Console.WriteLine("page---");
             Product = await context.Products.FindAsync(id);
         }
     }

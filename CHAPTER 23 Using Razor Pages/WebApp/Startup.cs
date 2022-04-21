@@ -23,7 +23,8 @@ namespace WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(opts => {
+            services.AddDbContext<DataContext>(opts =>
+            {
                 opts.UseSqlServer(Configuration[
                 "ConnectionStrings:ProductConnection"]);
                 opts.EnableSensitiveDataLogging(true);
@@ -32,7 +33,8 @@ namespace WebApp
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddDistributedMemoryCache();
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.Cookie.IsEssential = true;
             });
         }
@@ -44,7 +46,9 @@ namespace WebApp
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
+
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();

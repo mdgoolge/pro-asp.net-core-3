@@ -42,6 +42,8 @@ namespace WebApp
             services.Configure<RazorPagesOptions>(opts => {
                 opts.Conventions.AddPageRoute("/Index", "/extra/page/{id:long?}");
             });
+
+            services.AddSingleton<CitiesData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

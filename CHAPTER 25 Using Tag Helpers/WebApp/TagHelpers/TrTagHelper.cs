@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace WebApp.TagHelpers
 {
+    [HtmlTargetElement("tr", Attributes = "bg-color,text-color", ParentTag = "thead")]
     public class TrTagHelper : TagHelper
     {
         public string BgColor { get; set; } = "dark";

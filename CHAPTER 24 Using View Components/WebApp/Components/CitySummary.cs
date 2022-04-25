@@ -29,10 +29,21 @@ namespace WebApp.Components
         //{
         //    return Content("This is a <h3><i>string</i></h3>");
         //}
-        public IViewComponentResult Invoke()
+        //public IViewComponentResult Invoke()
+        //{
+        //    return new HtmlContentViewComponentResult(
+        //    new HtmlString("This is a <h3><i>string</i></h3>"));
+        //}
+        public string Invoke()
         {
-            return new HtmlContentViewComponentResult(
-            new HtmlString("This is a <h3><i>string</i></h3>"));
+            if (RouteData.Values["controller"] != null)
+            {
+                return "Controller Request";
+            }
+            else
+            {
+                return "Razor Page Request";
+            }
         }
     }
 }

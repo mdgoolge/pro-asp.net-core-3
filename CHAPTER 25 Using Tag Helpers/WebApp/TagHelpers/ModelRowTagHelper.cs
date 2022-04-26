@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Linq;
 namespace WebApp.TagHelpers
 {
     [HtmlTargetElement("tr", Attributes = "for")]
@@ -13,7 +14,7 @@ TagHelperOutput output)
         {
             output.TagMode = TagMode.StartTagAndEndTag;
             TagBuilder th = new TagBuilder("th");
-            th.InnerHtml.Append(For.Name);
+            th.InnerHtml.Append(For.Name.Split(".").Last());
             output.Content.AppendHtml(th);
             TagBuilder td = new TagBuilder("td");
             if (Format != null && For.Metadata.ModelType == typeof(decimal))

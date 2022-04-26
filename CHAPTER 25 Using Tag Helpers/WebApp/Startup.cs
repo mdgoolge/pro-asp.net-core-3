@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using WebApp.TagHelpers;
 namespace WebApp
 {
     public class Startup
@@ -33,6 +35,8 @@ namespace WebApp
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddSingleton<CitiesData>();
+
+            services.AddTransient<ITagHelperComponent, TimeTagHelperComponent>();
 
         }
 

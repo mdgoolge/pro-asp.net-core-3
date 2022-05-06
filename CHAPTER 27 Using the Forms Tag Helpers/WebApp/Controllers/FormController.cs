@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
+using Microsoft.EntityFrameworkCore;
 namespace WebApp.Controllers
 {
     public class FormController : Controller
@@ -13,7 +14,8 @@ namespace WebApp.Controllers
         }
         public async Task<IActionResult> Index(long id = 1)
         {
-            return View("Form", await context.Products.FindAsync(id));
+            return View("Form", await context.Products.Include(p=>p.Category)
+                        .Include(p=>p.Supplier).FirstAsync(p=>p.ProductId==id));
         }
         [HttpPost]
         public IActionResult SubmitForm()

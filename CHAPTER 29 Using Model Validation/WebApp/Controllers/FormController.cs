@@ -18,10 +18,10 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index(long? id)
         {
             return View("Form", await context.Products
-                .FirstOrDefaultAsync(p => id == null || p.ProductId==id));
+                .FirstOrDefaultAsync(p => id == null || p.ProductId == id));
         }
         [HttpPost]
-        public IActionResult SubmitForm( Product product)
+        public IActionResult SubmitForm(Product product)
         {
             if (string.IsNullOrEmpty(product.Name))
             {
@@ -32,6 +32,14 @@ namespace WebApp.Controllers
             {
                 ModelState.AddModelError(nameof(Product.Price),
                 "Enter a positive price");
+            }
+            if (ModelState.GetValidationState(nameof(Product.Name))
+                == ModelValidationState.Valid
+                && ModelState.GetValidationState(nameof(Product.Price))
+                == ModelValidationState.Valid
+                && product.Name.ToLower().StartsWith("small") && product.Price > 100)
+            {
+                ModelState.AddModelError("", "Small products cannot cost more than $100");
             }
             if (!context.Categories.Any(c => c.CategoryId == product.CategoryId))
             {
@@ -60,7 +68,7 @@ namespace WebApp.Controllers
         {
             return View(TempData);
         }
-      
-       
+
+
     }
 }

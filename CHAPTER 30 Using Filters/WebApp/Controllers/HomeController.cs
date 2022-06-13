@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Http;
 namespace WebApp.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
-        [RequireHttps]
+      
         public IActionResult Index()
         {
             return View("Message",
             "This is the Index action on the Home controller");
         }
-        [RequireHttps]
+       
         public IActionResult Secure()
         {
             return View("Message",

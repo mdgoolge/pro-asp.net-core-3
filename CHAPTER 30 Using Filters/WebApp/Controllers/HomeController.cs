@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 namespace WebApp.Controllers
 {
-    [HttpsOnly]
+    //[HttpsOnly]
     [ResultDiagnostics]
-    [GuidResponse]
-    [GuidResponse]
+    //[GuidResponse]
+    //[GuidResponse]
     public class HomeController : Controller
     {
       

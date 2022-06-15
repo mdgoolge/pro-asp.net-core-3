@@ -48,6 +48,7 @@ namespace WebApp
  .SetValueMustNotBeNullAccessor(value => "Please enter a value")); 
             
             services.AddScoped<GuidResponseAttribute>();
+            services.Configure<MvcOptions>(opts => opts.Filters.Add<HttpsOnlyAttribute>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

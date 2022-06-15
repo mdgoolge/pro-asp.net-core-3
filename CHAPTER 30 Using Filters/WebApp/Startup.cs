@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Filters;
 namespace WebApp
 {
     public class Startup
@@ -44,7 +45,9 @@ namespace WebApp
             }); 
             
             services.Configure<MvcOptions>(opts => opts.ModelBindingMessageProvider
- .SetValueMustNotBeNullAccessor(value => "Please enter a value"));
+ .SetValueMustNotBeNullAccessor(value => "Please enter a value")); 
+            
+            services.AddScoped<GuidResponseAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

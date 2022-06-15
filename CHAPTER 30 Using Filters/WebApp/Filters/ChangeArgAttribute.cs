@@ -3,10 +3,11 @@ using System;
 using System.Threading.Tasks;
 namespace WebApp.Filters
 {
-    public class ChangeArgAttribute : Attribute, IAsyncActionFilter
+    public class ChangeArgAttribute : ActionFilterAttribute
     {
-        public async Task OnActionExecutionAsync(ActionExecutingContext context,
-        ActionExecutionDelegate next)
+        public override async Task OnActionExecutionAsync(
+ ActionExecutingContext context,
+ ActionExecutionDelegate next)
         {
             if (context.ActionArguments.ContainsKey("message1"))
             {

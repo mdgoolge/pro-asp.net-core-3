@@ -31,9 +31,11 @@
                 disabled="@Model.ReadOnly"
                 asp-items="@(new SelectList(Model.Categories,
 "CategoryId", "Name"))">
+            <option value="-1">Create New Category...</option>
             <option value="" disabled selected>Choose a Category</option>
         </select>
     </div>
+    <partial name="_CategoryEditor" for="Product" />
     <div class="form-group">
         <label asp-for="Product.SupplierId">Supplier</label>
         <div>

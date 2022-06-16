@@ -77,8 +77,19 @@ namespace WebApp.Controllers
 
 
 
-
-
+        public async Task<IActionResult> Delete(long id)
+        {
+            ProductViewModel model = ViewModelFactory.Delete(
+            await context.Products.FindAsync(id), Categories, Suppliers);
+            return View("ProductEditor", model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(Product product)
+        {
+            context.Products.Remove(product);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

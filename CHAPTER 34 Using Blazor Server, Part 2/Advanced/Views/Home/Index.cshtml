@@ -1,6 +1,9 @@
 ﻿@model PeopleListViewModel
 <h4 class="bg-primary text-white text-center p-2">People</h4>
-<table class="table table-sm table-bordered table-striped">
+
+<component type="typeof(Advanced.Blazor.PeopleList)" render-mode="Server" />
+
+@*<table class="table table-sm table-bordered table-striped">
     <thead>
         <tr>
             <th>ID</th>
@@ -35,4 +38,4 @@
         </select>
     </div>
     <button class="btn btn-primary" type="submit">Select</button>
-</form>
+</form>*@

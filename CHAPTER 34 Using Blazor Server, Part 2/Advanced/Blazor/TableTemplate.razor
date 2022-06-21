@@ -1,14 +1,30 @@
 ﻿@typeparam RowType
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <SelectFilter Title="@("Sort")"  Values="@SortDirectionChoices" 
+                          @bind-SelectedValue="SortDirectionSelection"  />
+
+            
+        </div>
+        <div class="col">
+            <SelectFilter Title="@("Highlight")" Values="@HighlightChoices()"
+                          @bind-SelectedValue="HighlightSelection" />
+        </div>
+    </div>
+</div>
+
+
 <table class="table table-sm table-bordered table-striped">
     @if (Header != null)
     {
         <thead>@Header</thead>
     }
     <tbody>
-        @foreach (RowType item in RowData)
+        @foreach (RowType item in SortedData())
         {
-            <tr>@RowTemplate(item)</tr>
+            <tr class="@IsHightlighted(item)">@RowTemplate(item)</tr>
         }
     </tbody>
 </table>
@@ -19,6 +35,30 @@
     [Parameter]
     public RenderFragment<RowType> RowTemplate { get; set; }
 
-    [Parameter] 
+    [Parameter]
     public IEnumerable<RowType> RowData { get; set; }
-    }
+
+    [Parameter]
+    public Func<RowType, string> Highlight { get; set; }
+
+    public IEnumerable<string> HighlightChoices() =>
+        RowData.Select(item => Highlight(item)).Distinct();
+
+    public string HighlightSelection { get; set; }
+
+    public string IsHightlighted(RowType item) =>
+        Highlight(item) == HighlightSelection ? "bg-dark text-white" : "";
+
+    [Parameter]
+    public Func<RowType, string> SortDirection { get; set; }
+
+    public string[] SortDirectionChoices =
+        new string[] { "Ascending", "Descending" };
+
+    public string SortDirectionSelection { get; set; } = "Ascending";
+
+    public IEnumerable<RowType> SortedData() =>
+        SortDirectionSelection == "Ascending"
+            ? RowData.OrderBy(SortDirection)
+            : RowData.OrderByDescending(SortDirection);
+}

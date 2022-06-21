@@ -20,11 +20,14 @@
     </tbody>
 </table>
 
-<SelectFilter Values="@Cities" Title="@SelectTitle" @bind-SelectedValue="SelectedCity" />
-<button class="btn btn-primary"
-        @onclick="@(()=> SelectedCity="San Jose")">
-    Change
-</button>
+<ThemeWrapper Theme="info" Title="Location Selector">
+    <SelectFilter Values="@Cities" Title="@SelectTitle" @bind-SelectedValue="SelectedCity" />
+    <button class="btn btn-primary"
+            @onclick="@(()=> SelectedCity="San Jose")">
+        Change
+    </button>
+</ThemeWrapper>
+
 
 @code {
     [Inject]

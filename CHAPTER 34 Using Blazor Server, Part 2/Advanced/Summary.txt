@@ -1,4 +1,0 @@
-﻿Chapter 32
-In this chapter, I showed how to create the example application that is used throughout this part of the book. The project was created
-with the Empty template, and it contains a data model that relies on Entity Framework Core and handles requests using a controller
-and a Razor Page. In the next chapter, I introduce Blazor, which is a new addition to ASP.NET Core.

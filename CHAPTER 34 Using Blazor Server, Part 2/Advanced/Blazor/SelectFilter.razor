@@ -1,6 +1,6 @@
 ﻿<div class="form-group">
     <label for="select-@Title">@Title</label>
-    <select name="select-@Title" class="form-control" @bind="SelectedValue">
+    <select name="select-@Title" class="form-control" @bind="SelectedValue"@attributes="Attrs">
         <option disabled selected>Select @Title</option>
         @foreach (string val in Values)
         {
@@ -11,7 +11,15 @@
     </select>
 </div>
 @code {
+
+    [Parameter]
     public IEnumerable<string> Values { get; set; } = Enumerable.Empty<string>();
+
     public string SelectedValue { get; set; }
+
+    [Parameter]
     public string Title { get; set; } = "Placeholder";
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> Attrs { get; set; }
 }

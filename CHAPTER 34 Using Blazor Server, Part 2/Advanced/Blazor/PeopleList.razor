@@ -32,8 +32,9 @@
         }
     </select>
 </div>*@
-<SelectFilter />
-
+<SelectFilter Values="@Cities" Title="City"/>
+<SelectFilter values="@Cities" title="City" autofocus="true" name="city"
+              required="true" />
 @code {
     [Inject]
     public DataContext Context { get; set; }

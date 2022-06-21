@@ -8,14 +8,17 @@
     <tbody>
         @foreach (RowType item in RowData)
         {
-            <tr>@RowTemplate</tr>
+            <tr>@RowTemplate(item)</tr>
         }
     </tbody>
 </table>
 @code {
     [Parameter]
     public RenderFragment Header { get; set; }
+
     [Parameter]
     public RenderFragment<RowType> RowTemplate { get; set; }
-    [Parameter] public IEnumerable<RowType> RowData { get; set; }
+
+    [Parameter] 
+    public IEnumerable<RowType> RowData { get; set; }
     }

@@ -20,7 +20,11 @@
     </tbody>
 </table>
 
-<SelectFilter Values="@Cities" Title="@SelectTitle" CustomEvent="@HandleCustom" />
+<SelectFilter Values="@Cities" Title="@SelectTitle" @bind-SelectedValue="SelectedCity" />
+<button class="btn btn-primary"
+        @onclick="@(()=> SelectedCity="San Jose")">
+    Change
+</button>
 
 @code {
     [Inject]
@@ -37,8 +41,8 @@
 
     [Parameter]
     public string SelectTitle { get; set; }
-    public void HandleCustom(string newValue)
-    {
-        SelectedCity = newValue;
-    }
+    //public void HandleCustom(string newValue)
+    //{
+    //    SelectedCity = newValue;
+    //}
 }

@@ -20,28 +20,21 @@
     </tbody>
 </table>
 
-@*<div class="form-group">
-    <label for="city">City</label>
-    <select name="city" class="form-control" @bind="SelectedCity">
-        <option disabled selected>Select City</option>
-        @foreach (string city in Cities)
-        {
-            <option value="@city" selected="@(city == SelectedCity)">
-                @city
-            </option>
-        }
-    </select>
-</div>*@
-<SelectFilter Values="@Cities" Title="City"/>
-<SelectFilter values="@Cities" title="City" autofocus="true" name="city"
-              required="true" />
+<SelectFilter values="@Cities" title="@SelectTitle" />
+
 @code {
     [Inject]
     public DataContext Context { get; set; }
     public IEnumerable<Person> People =>
-        Context.People.Include(p => p.Department).Include(p => p.Location);
+        Context.People.Include(p => p.Department).Include(p => p.Location).Take(ItemCount);
     public IEnumerable<string> Cities => Context.Locations.Select(l => l.City);
     public string SelectedCity { get; set; }
     public string GetClass(string city) =>
         SelectedCity == city ? "bg-info text-white" : "";
+
+    [Parameter]
+    public int ItemCount { get; set; } = 4;
+
+    [Parameter]
+    public string SelectTitle { get; set; }
 }

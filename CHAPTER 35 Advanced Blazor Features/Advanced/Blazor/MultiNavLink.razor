@@ -71,8 +71,14 @@ Match ?? (Href.Count() == 1 ? NavLinkMatch.Prefix : NavLinkMatch.All);
 
     public void SetEnabled(bool enabled)
     {
-        Enabled = enabled;
-        CheckMatch(NavManager.Uri);
+        InvokeAsync(() =>
+        {
+            Enabled = enabled;
+            CheckMatch(NavManager.Uri);
+
+            StateHasChanged();
+        });
+
     }
 
 }

@@ -19,6 +19,10 @@
 
 <SelectFilter Title="@("Theme")" Values="Themes"@bind-SelectedValue="Theme"></SelectFilter>
 
+<button class="btn btn-danger" @onclick="@(() => throw new Exception())">
+    Error
+</button>
+
 @code {
     [Inject]
     public DataContext Context { get; set; }

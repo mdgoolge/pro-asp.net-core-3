@@ -1,4 +1,7 @@
-﻿<CascadingValue Name="BgTheme" Value="Theme" IsFixed="false">
+﻿@page "/departments"
+@page "/depts"
+
+<CascadingValue Name="BgTheme" Value="Theme" IsFixed="false">
 
     <TableTemplate RowType="Department" RowData="Departments"
                    Highlight="@(d => d.Name)"
@@ -17,7 +20,7 @@
     </TableTemplate>
 </CascadingValue>
 
-<SelectFilter Title="@("Theme")" Values="Themes"@bind-SelectedValue="Theme"></SelectFilter>
+<SelectFilter Title="@("Theme")" Values="Themes" @bind-SelectedValue="Theme"></SelectFilter>
 
 <button class="btn btn-danger" @onclick="@(() => throw new Exception())">
     Error

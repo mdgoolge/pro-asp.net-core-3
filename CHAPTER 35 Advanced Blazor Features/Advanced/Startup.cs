@@ -48,6 +48,7 @@ namespace Advanced
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
             });
             SeedData.SeedDatabase(context);
         }

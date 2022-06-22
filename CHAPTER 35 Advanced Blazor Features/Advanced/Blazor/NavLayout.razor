@@ -26,6 +26,9 @@
 
 @code {
     [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    [Inject]
     public ToggleService Toggler { get; set; }
 
     public Dictionary<string, string[]> NavLinks
@@ -37,12 +40,13 @@
 
     public Dictionary<string, MultiNavLink> Refs = new Dictionary<string, MultiNavLink>();
 
-   
-    protected override void OnAfterRender(bool firstRender)
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             Toggler.EnrolComponents(Refs.Values);
+            await JSRuntime.InvokeVoidAsync("createToggleButton");
         }
     }
     public void ToggleLinks()

@@ -8,3 +8,12 @@
         row.append(cell);
     }
 }
+
+function createToggleButton() {
+    let sibling = document.querySelector("button:last-of-type");
+    let button = document.createElement("button");
+    button.classList.add("btn", "btn-secondary", "btn-block");
+    button.innerText = "JS Toggle";
+    sibling.parentNode.insertBefore(button, sibling.nextSibling);
+    button.onclick = () => DotNet.invokeMethodAsync("Advanced", "ToggleEnabled");
+}

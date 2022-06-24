@@ -1,0 +1,24 @@
+﻿Chapter 32
+In this chapter, I showed how to create the example application that is used throughout this part of the book. The project was created
+with the Empty template, and it contains a data model that relies on Entity Framework Core and handles requests using a controller
+and a Razor Page. In the next chapter, I introduce Blazor, which is a new addition to ASP.NET Core.
+
+Chapter 33 
+In this chapter, I introduced Blazor Server, explained the problem it solves, and described the advantages and disadvantages it
+presents. I showed you how to configure an ASP.NET Core application to enable Blazor Server and showed you the basic features
+that are available when using Razor Components, which are the Blazor building blocks. In the next chapter, I continue to describe
+the features provided by Blazor.
+
+Chapter 34
+In this chapter, I showed you how to combine Razor Components to create more complex features. I showed you how to create
+parent/child relationships between components, how to configure components with attributes, and how to create custom events to
+signal when important changes occur. I also showed you how a component can receive content from its parent and how to generate
+content consistently using template components, which can be defined with one or more generic type parameters. I finished the
+chapter by demonstrating how Blazor applications can react to connection and application errors. In the next chapter, I describe the
+advanced features that Blazor provides.
+
+Chapter 35
+In this chapter, I explained how components can be combined with routing to alter the content displayed to the user based on the
+current URL. I described the component lifecycle and the methods it can implement for each stage in the process, and I finished this
+chapter by explaining the different ways that component methods can be invoked from outside of Blazor, including interoperability
+with JavaScript. In the next chapter, I describe the features that Blazor provides for HTML forms.

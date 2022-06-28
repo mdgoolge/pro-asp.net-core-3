@@ -1,6 +1,7 @@
 ﻿@page "/forms"
 @page "/forms/list"
 @layout EmptyLayout
+
 <h5 class="bg-primary text-white text-center p-2">People</h5>
 <table class="table table-sm table-striped table-bordered">
     <thead>
@@ -37,6 +38,10 @@
         }
     </tbody>
 </table>
+
+<button class="btn btn-primary" @onclick="@(() => Counter++)">Increment</button>
+<span class="h5">Counter: @Counter</span>
+
 @code {
     [Inject]
     public DataContext Context { get; set; }
@@ -46,4 +51,6 @@
         People = Context.People.Include(p => p.Department).Include(p => p.Location);
     }
     string GetEditUrl(long id) => $"/forms/edit/{id}";
+
+    public int Counter { get; set; } = 0;
 }

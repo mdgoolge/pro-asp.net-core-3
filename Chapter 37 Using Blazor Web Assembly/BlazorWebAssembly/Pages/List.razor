@@ -50,17 +50,22 @@
 @code {
     [Inject]
     public HttpClient Http { get; set; }
+
     public Person[] People { get; set; } = Array.Empty<Person>();
+
     protected async override Task OnInitializedAsync()
     {
         await UpdateData();
     }
+
     private async Task UpdateData()
     {
         People = await Http.GetJsonAsync<Person[]>("/api/people");
     }
+
     string GetEditUrl(long id) => $"forms/edit/{id}";
     string GetDetailsUrl(long id) => $"forms/details/{id}";
+
     public async Task HandleDelete(Person p)
     {
         HttpResponseMessage resp =

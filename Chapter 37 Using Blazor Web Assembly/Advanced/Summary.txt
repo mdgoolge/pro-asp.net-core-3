@@ -28,3 +28,8 @@ In this chapter, I described Blazor form features and showed you how they can be
 explained how the interactions between Entity Framework Core and Blazor can cause unexpected results and how these can be
 resolved by creating dependency injection scopes and managing how queries are executed. In the next chapter, I describe Blazor
 WebAssembly, which executes Razor Components entirely in the browser.
+
+Chapter 37
+In this chapter, I described Blazor WebAssembly, showed you how to add it to a project, and demonstrated how it is similar—
+although not identical—to the Blazor Server described in earlier chapters. In the next chapter, I explain how to use ASP.NET Core
+Identity to secure an application.

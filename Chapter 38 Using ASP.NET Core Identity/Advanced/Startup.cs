@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Advanced.Models;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Identity;
 
 namespace Advanced
 {
@@ -27,9 +28,9 @@ namespace Advanced
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(opts => {
-                opts.UseSqlServer(Configuration[
-                "ConnectionStrings:PeopleConnection"]);
+            services.AddDbContext<DataContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration["ConnectionStrings:PeopleConnection"]);
                 opts.EnableSensitiveDataLogging(true);
             });
 
@@ -38,10 +39,16 @@ namespace Advanced
             services.AddServerSideBlazor();
             services.AddSingleton<Services.ToggleService>();
 
-            services.AddResponseCompression(opts => {
+            services.AddResponseCompression(opts =>
+            {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                 new[] { "application/octet-stream" });
             });
+
+            services.AddDbContext<IdentityContext>(opts =>
+                opts.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,8 +57,9 @@ namespace Advanced
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute("controllers","controllers/{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("controllers", "controllers/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();

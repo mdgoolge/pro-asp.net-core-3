@@ -52,8 +52,7 @@
 
         public async Task<string> GetMembersString(string role)
         {
-            IEnumerable<IdentityUser> users
-            = (await UserManager.GetUsersInRoleAsync(role));
+            IEnumerable<IdentityUser> users = (await UserManager.GetUsersInRoleAsync(role));
             string result = users.Count() == 0
             ? "No members"
             : string.Join(", ", users.Take(3).Select(u => u.UserName).ToArray());

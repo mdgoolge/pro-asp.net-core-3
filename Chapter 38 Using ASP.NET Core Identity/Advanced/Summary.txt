@@ -33,3 +33,9 @@ Chapter 37
 In this chapter, I described Blazor WebAssembly, showed you how to add it to a project, and demonstrated how it is similar—
 although not identical—to the Blazor Server described in earlier chapters. In the next chapter, I explain how to use ASP.NET Core
 Identity to secure an application.
+
+Chapter 38
+In this chapter, I showed you how to add ASP.NET Core Identity to a project and prepare its database to store users and roles. I
+described the basic ASP.NET Core Identity API and showed you how it can be used to create tools to manage users and roles. In the
+next chapter, I show you how to apply ASP.NET Core Identity to control access to controllers, Razor Pages, Blazor applications, and
+web services.

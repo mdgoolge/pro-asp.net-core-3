@@ -89,6 +89,7 @@ namespace Advanced
 opts.UseClientSideBlazorFiles<BlazorWebAssembly.Startup>());
 
             SeedData.SeedDatabase(context);
+            IdentitySeedData.CreateAdminAccount(app.ApplicationServices, Configuration);
         }
     }
 }

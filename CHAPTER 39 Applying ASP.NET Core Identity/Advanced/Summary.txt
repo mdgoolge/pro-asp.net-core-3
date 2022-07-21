@@ -39,3 +39,10 @@ In this chapter, I showed you how to add ASP.NET Core Identity to a project and 
 described the basic ASP.NET Core Identity API and showed you how it can be used to create tools to manage users and roles. In the
 next chapter, I show you how to apply ASP.NET Core Identity to control access to controllers, Razor Pages, Blazor applications, and
 web services.
+
+Chapter 39
+In this chapter, I showed you how to apply authentication and authorization in an ASP.NET Core application. I explained the process
+for authenticating users and restricting access to endpoints. I explained how users are authorized in Blazor applications, and I
+demonstrated how web service clients can be authenticated using cookies and bearer tokens.
+That’s all I have to teach you about ASP.NET Core. I can only hope that you have enjoyed reading this book as much as I enjoyed
+writing it, and I wish you every success in your ASP.NET Core projects.

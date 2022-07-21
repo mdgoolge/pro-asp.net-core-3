@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Advanced.Models;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Advanced
 {
@@ -50,15 +51,28 @@ namespace Advanced
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
-            services.Configure<IdentityOptions>(opts => {
+            services.Configure<IdentityOptions>(opts =>
+            {
                 opts.Password.RequiredLength = 6;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireLowercase = false;
-                opts.Password.RequireUppercase = false; 
+                opts.Password.RequireUppercase = false;
                 opts.Password.RequireDigit = false;
 
                 opts.User.RequireUniqueEmail = true;
                 opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
+            });
+
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(opts =>
+            {
+                opts.Events.DisableRedirectForPath(e => e.OnRedirectToLogin,
+                "/api", StatusCodes.Status401Unauthorized);
+                opts.Events.DisableRedirectForPath(e => e.OnRedirectToAccessDenied,
+                "/api", StatusCodes.Status403Forbidden);
             });
         }
 
